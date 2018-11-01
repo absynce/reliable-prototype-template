@@ -1,0 +1,27 @@
+{
+  "repository": {},
+  "license": "MIT",
+  "scripts": {
+    "deploy": "brunch build --production",
+    "start": "npm-run-all --parallel start-db start-backend",
+    "start-backend": "cd backend && mix phx.server",
+    "start-db": "npx postgraphile --cors -c postgres://postgres:reliable@localhost:5432/postgres --watch",
+    "watch": "brunch watch --stdin"
+  },
+  "dependencies": {
+    "phoenix": "file:backend/deps/phoenix",
+    "phoenix_html": "file:backend/deps/phoenix_html",
+    "postgraphile": "^4.0.1"
+  },
+  "devDependencies": {
+    "@dillonkearns/elm-graphql": "^1.0.4",
+    "babel-brunch": "6.1.1",
+    "brunch": "2.10.9",
+    "clean-css-brunch": "2.10.0",
+    "copycat-brunch": "^1.1.0",
+    "elm": "^0.19.0-bugfix2",
+    "elm-brunch": "^0.12.0",
+    "npm-run-all": "^4.1.3",
+    "uglify-js-brunch": "2.10.0"
+  }
+}
