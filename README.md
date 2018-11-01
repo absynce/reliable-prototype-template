@@ -23,33 +23,26 @@ Install npx (if you don't already have it):
     npm i -g npx
 
 ### Initial setup
-* Prep the DB
+
+Prep the DB:
 ```
-    docker run
-      --name reliable-prototype
-      --publish 5432:5432
-      -e POSTGRES_PASSWORD=reliable
-      -d postgres
-    mix ecto.create
+npm run start-db
+cd backend && mix ecto.create
 ```
 
 ### Every time you develop
 
-    # TODO: Move this stuff to package.json dev script.
-    npx elm-graphql http://localhost:5000/graphql --output frontend/src # TODO: Move to start/watch script.
-    cd backend # TODO: Move mix.exs to top-level project folder.
-    mix deps.get # In case someone else added deps.
-    mix ecto.migrate # Is this necessary? Is this done on mix phx.server?
-    mix run priv/repo/seeds.exs # Is this necessary? Is this done on mix phx.server?
-    cd .. && npm start
+    npm install
+    npm run update-db
+    npm start
 
-Open psql
+Open psql:
 
-    docker exec -it reliable-prototype psql -U postgres
+    npm run psql
 
 ## Example workflow
 
-When creating prototypes, a quick feedback loop is important. Here's an example of how you might work on a new feature.
+When creating prototypes, a quick feedback loop is important. Here's an example of how you might work on a new feature:
 
       /--> (start) Define data structure ----\
      /                                        \
@@ -85,4 +78,4 @@ GraphQL Query:
 
 For now, this is a manual step. I'm investigating how to automatically run elm-graphql on schema change.
 
-    npx elm-graphql http://localhost:5000/graphql --output frontend/src # TODO: Move to start/watch script.
+    npm run update-graphql

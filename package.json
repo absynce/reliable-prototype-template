@@ -2,11 +2,17 @@
   "repository": {},
   "license": "MIT",
   "scripts": {
-    "deploy": "brunch build --production",
-    "start": "npm-run-all --parallel start-db start-backend",
+    "postinstall": "cd backend && mix deps.get",
+    "psql": "docker exec -it reliable-prototype psql -U postgres",
+    "start": "npm-run-all --parallel start-api start-backend update-graphql",
+    "start-api": "npx postgraphile --cors -c postgres://postgres:reliable@localhost:5432/postgres --watch",
     "start-backend": "cd backend && mix phx.server",
-    "start-db": "npx postgraphile --cors -c postgres://postgres:reliable@localhost:5432/postgres --watch",
-    "watch": "brunch watch --stdin"
+    "start-db": "docker run --name reliable-prototype --publish 5432:5432 -e POSTGRES_PASSWORD=reliable -d postgres", 
+    "update-db": "npm-run-all update-db-*",
+    "update-db-migrate": "cd backend && mix ecto.migrate",
+    "update-db-seeds": "cd backend && mix run priv/repo/seeds.exs",
+    "update-graphql": "elm-graphql http://localhost:5000/graphql --output frontend/src",
+    "watch": "npm run start"
   },
   "dependencies": {
     "phoenix": "file:backend/deps/phoenix",
