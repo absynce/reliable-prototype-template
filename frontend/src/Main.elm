@@ -1,6 +1,6 @@
 port module Main exposing (Flags, Model, Msg(..), init, main, onUrlChange, pushUrl, subscriptions, update, view)
 
-import Api.Object exposing (Patient, User)
+import Api.Object exposing (Patient)
 import Api.Object.Patient as Patient
 import Api.Query as Query
 import Api.Scalar
